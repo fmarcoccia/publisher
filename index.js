@@ -129,7 +129,7 @@
         unsubscribe(name, fn);
       }
     },
-    emit: function(name){
+    emit: function(name,data){
       if(!exsistEventName(name)){
         throw new Error('event not exsist')
       }
@@ -137,14 +137,15 @@
 
       let fns = subscriber[name];
       for(let i =0; i<fns.length;i++){
-        fns[i].fn();
+        fns[i].fn(data);
       }
     }
   }
 });
 
-/*
-let feff = publisher.subscribe('evento 1',()=>{console.log('evento 1 fn 1')});
-let fesf = publisher.subscribe('evento 1',()=>{console.log('evento 1 fn 2')});
+
+let feff = publisher.subscribe('evento 1',(data)=>{console.log('evento 1 fn 1 ',data)});
+let fesf = publisher.subscribe('evento 1',(data)=>{console.log('evento 1 fn 2 ',data)});
 let seff = publisher.subscribe('evento 2',()=>{console.log('evento 2 fn 1')});
-*/
+
+publisher.emit('evento 1', 'CIAO')
