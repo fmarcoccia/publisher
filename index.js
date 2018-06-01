@@ -142,10 +142,3 @@
     }
   }
 });
-
-
-let feff = publisher.subscribe('evento 1',(data)=>{console.log('evento 1 fn 1 ',data)});
-let fesf = publisher.subscribe('evento 1',(data)=>{console.log('evento 1 fn 2 ',data)});
-let seff = publisher.subscribe('evento 2',()=>{console.log('evento 2 fn 1')});
-
-publisher.emit('evento 1', 'CIAO')
