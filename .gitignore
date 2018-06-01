@@ -1,0 +1,13 @@
+node_modules
+npm-debug.log
+dist
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Eclipse project files
+.classpath
+.project
+.settings/

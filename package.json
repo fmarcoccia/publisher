@@ -1,0 +1,22 @@
+{
+  "name": "publisher",
+  "version": "1.0.0",
+  "description": "micro library to subscribe and emit a custom event",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [
+    "publisher",
+    "emit",
+    "subscribe",
+    "listener",
+    "event"
+  ],
+  "author": "Fabio Marcoccia",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.3",
+    "gulp-src": "^1.0.0",
+    "gulp-uglify-es": "^1.0.4"
+  }
+}
