@@ -1,8 +1,7 @@
 /**
  * @author Fabio Marcoccia
- * @email  fabio@marcoccia.net
- * @date   01/06/2018
  */
+
 (function (root, factory) {
   //Support AMD
   if (typeof define === 'function' && define.amd) {
@@ -28,20 +27,17 @@
   //
 
   /**
-   *
-   * @param {String} message
+   * @param {string} message
    */
   function throwable(message) {
     throw new Error(message);
   }
 
   /**
-   *
-   * @param {String} s
-   * @returns {string}
+   * @param {string} s
+   * @returns {string} hash to input
    */
   function hash(s) {
-    /* Simple hash function. */
     let a = 1, c = 0, h, o;
     if (s) {
       a = 0;
@@ -56,9 +52,8 @@
   }
 
   /**
-   *
-   * @param {String} eventName
-   * @param {Function} fn
+   * @param {string} eventName
+   * @param {function} fn
    */
   function addFnInArray(eventName, fn){
     let randomString = hash(fn.toString());
@@ -69,9 +64,8 @@
   }
 
   /**
-   *
-   * @param {String} eventName
-   * @returns {Boolean} return true if already exist eventName
+   * @param {string} eventName
+   * @returns {boolean} true if already exist eventName
    */
   function existEventName(eventName){
     const fns = subscriber[eventName];
@@ -79,9 +73,8 @@
   }
 
   /**
-   *
-   * @param {String} eventName
-   * @param {Function} fn
+   * @param {string} eventName
+   * @param {function} fn
    */
   function registerSubscriber(eventName, fn){
     if(existEventName(eventName)){
@@ -94,9 +87,8 @@
   }
 
   /**
-   *
-   * @param {String} eventName
-   * @param {Function} fn
+   * @param {string} eventName
+   * @param {function} fn
    */
   function findFn(eventName, fn){
     const fns = subscriber[eventName];
@@ -106,9 +98,8 @@
   }
 
   /**
-   *
-   * @param {String} eventName
-   * @param {Function} fn
+   * @param {string} eventName
+   * @param {function} fn
    */
   function unsubscribe(eventName, fn){
     const fns = subscriber[eventName];
