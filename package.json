@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "micro library to subscribe and emit a custom event",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "build": "gulp build"
+  },
   "keywords": [
     "publisher",
     "emit",
@@ -13,6 +15,10 @@
   ],
   "author": "Fabio Marcoccia",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Hanf92/publisher.git"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-rename": "^1.2.3",

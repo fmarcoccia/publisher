@@ -1,16 +1,19 @@
 /**
- * @Author Fabio Marcoccia
+ * @author Fabio Marcoccia
  * @email  fabio@marcoccia.net
- * @Date   01/06/2018
+ * @date   01/06/2018
  */
 (function (root, factory) {
+  //Support AMD
   if (typeof define === 'function' && define.amd) {
     define([], function () {
       return factory();
     });
+    //Support CommonJS
   } else if (typeof exports === 'object') {
     module.exports = factory();
   } else {
+    //Browser console
     window.publisher = factory();
   }
 })(( typeof window === 'object' && window ) || this, function () {
@@ -26,7 +29,15 @@
 
   /**
    *
-   * @param s
+   * @param {String} message
+   */
+  function throwable(message) {
+    throw new Error(message);
+  }
+
+  /**
+   *
+   * @param {String} s
    * @returns {string}
    */
   function hash(s) {
@@ -34,7 +45,6 @@
     let a = 1, c = 0, h, o;
     if (s) {
       a = 0;
-      /*jshint plusplus:false bitwise:false*/
       for (h = s.length - 1; h >= 0; h--) {
         o = s.charCodeAt(h);
         a = (a<<6&268435455) + o + (o<<14);
@@ -51,22 +61,21 @@
    * @param {Function} fn
    */
   function addFnInArray(eventName, fn){
-    let randomicString = hash(fn.toString());
+    let randomString = hash(fn.toString());
     subscriber[eventName].push({
       fn: fn,
-      randomicString: randomicString
+      randomString: randomString
     })
   }
 
   /**
    *
    * @param {String} eventName
-   * @returns {boolean} return true if already exsist eventName
+   * @returns {Boolean} return true if already exist eventName
    */
-  function exsistEventName(eventName){
+  function existEventName(eventName){
     const fns = subscriber[eventName];
     return typeof fns === 'object';
-
   }
 
   /**
@@ -75,14 +84,13 @@
    * @param {Function} fn
    */
   function registerSubscriber(eventName, fn){
-    if(exsistEventName(eventName)){
+    if(existEventName(eventName)){
       addFnInArray(eventName,fn);
 
     } else{
       subscriber[eventName] = [];
       addFnInArray(eventName,fn)
     }
-    //console.info('subscriber ', subscriber)
   }
 
   /**
@@ -93,12 +101,8 @@
   function findFn(eventName, fn){
     const fns = subscriber[eventName];
     let hashToFind = hash(fn.toString());
-    for(let i=0; i<fns.length;i++){
-      if(hashToFind === fns[i].randomicString){
-        fns.splice(i, 1);
-        break;
-      }
-    }
+    let indexFnToDelete = fns.findIndex( f => f.randomString === hashToFind);
+    fns.splice(indexFnToDelete, 1);
   }
 
   /**
@@ -121,22 +125,22 @@
   return {
     subscribe: function(name, fn){
       if(typeof fn !== "function" || typeof name !== "string"){
-        throw new Error('argument must be a string and function')
+        const errorMessage = 'first argument must be a string second argument must be a function';
+        throwable(errorMessage);
       }
-      //console.info('subscribe event with name ', name);
       registerSubscriber(name,fn);
       return function(){
         unsubscribe(name, fn);
       }
     },
     emit: function(name,data){
-      if(!exsistEventName(name)){
-        throw new Error('event not exsist')
+      if(!existEventName(name)){
+        const errorMessage = 'event not exist';
+        throwable(errorMessage);
       }
-      //console.info('emit event with name ', name)
 
       let fns = subscriber[name];
-      for(let i =0; i<fns.length;i++){
+      for(let i=0; i<fns.length;i++){
         fns[i].fn(data);
       }
     }
